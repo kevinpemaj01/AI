@@ -23,6 +23,11 @@ dei clienti oltre a quelli già presenti nei disegni.
 
 ## 2. AutoCAD e strumenti
 
+- Repository condiviso (privato): **https://github.com/kevinpemaj01/AI** (branch `main`).
+  Workspace locale: `C:\Users\Kevin\Desktop\DISEGNI AUTOCAD\Design & Draft`.
+  Nel repository NON ci sono `Projects/` né i disegni DXF/DWG (dati dei clienti): chi lavora da
+  un clone non ha le piante di riferimento, quindi non può far girare i test LOCK che le usano.
+
 - La postazione ha **AutoCAD LT 2025**: **niente COM/automazione**, nessun collegamento "live".
   Gli script producono file **DXF** (libreria `tools/cad-output/dxf_writer.py`, ezdxf) che Kevin
   apre in LT. Non avviare una seconda istanza di LT. (`.dwg` è associato a SPAC Start 26.)
@@ -119,3 +124,4 @@ dei clienti oltre a quelli già presenti nei disegni.
 - 12/10/2026 — Soluzione A per i blocchi della legenda.
 - 13/10/2026 — VJN001: 1:100, una tavola per impianto, PT e P1 affiancati; tavole dimostrative su richiesta.
 - 26/10/2026 — "Base al 10" (cm, A1 ×10, 1:100) per il momento; memoria condivisa via GitHub con ChatGPT.
+- 26/10/2026 — Repository privato kevinpemaj01/AI collegato; disegni DXF/DWG e Projects/ esclusi (finché Kevin non decide).
