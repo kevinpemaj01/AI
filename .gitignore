@@ -1,17 +1,7 @@
-# Lavori dei clienti (uscite di progetto)
-Projects/
-
-# File rigenerati automaticamente
-tools/standard-pemaj/out/
+# Cache di Python
 __pycache__/
 *.pyc
-*.bak
-*.tmp.xlsx
 
-# Uscite dei test (si rigenerano)
-tools/planimetria-impianto/tests/prova_tavola/
-tools/planimetria-impianto/tests/prova_posa/
-
-# Disegni (dati dei clienti): esclusi finche' Kevin non decide se metterli nel repository privato
-*.dxf
-*.dwg
+# GitHub rifiuta i file oltre 100 MB: questo (177 MB) e' nel repository compresso
+# come tools/standard-pemaj/out/basi/layout_base.zip
+tools/standard-pemaj/out/basi/layout_base.dxf

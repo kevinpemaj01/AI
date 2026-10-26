@@ -1,0 +1,14 @@
+{
+  "sorgenti": {
+    "master": "9aae273aed0ba6cdfee0ea14e1777a097a2c0b29f44c62bab62a4483ca0c667c",
+    "cartiglio": "1f18da429ea64d2cebd13ad5b78b3e90f676fa7a984907d4aab05feec50484cd",
+    "genera_ctb": "a37c9b77c9fcb581681429c0ae32c64481d5b3b752c9172e48dae04cde23101a",
+    "genera_template": "9e775594eaf98c1e905727a782e0e450646e001e878a03048f8224e65387acf9"
+  },
+  "output": {
+    "PEMAJ_PROGETTI.ctb": "9f66214b43665b592fbb2483503ee6c7e05506e210c1b66827bce03b7af1f958",
+    "PEMAJ_DIRI.ctb": "aa53962376322a1e1cb45308f69981f9e259ff4063f55f5ba561c6f0b6d99dde",
+    "PEMAJ_SCHEMI.ctb": "837d37f6a4c1e7ea584600df14697fa12cab809fb6fc64579133352f05b913be",
+    "PEMAJ_TEMPLATE_mm.dxf": "bb46eebc8a908705f3bc37893c9d1fa2e4dc7cb58db8ea9045f5912a7a987d0d"
+  }
+}

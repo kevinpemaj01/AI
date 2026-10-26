@@ -1,0 +1,16 @@
+{
+  "_nota": "Dati segnaposto (Mario Rossi) - sostituire con i dati reali del committente. Chiavi di 'testi' = testo originale nel CARTIGLIO BASE; valore '' = riga eliminata.",
+  "nome_blocco": "CARTIGLIO VJN001",
+  "testi": {
+    "Aura Automotive s.r.l.": "Sig. Mario Rossi",
+    "P.IVA 13451980018": "C.F. RSSMRA80A01A479X",
+    "Via Bobbio, 23/F - Torino (TO)": "Via Roma, 1 - Isola d'Asti (AT)",
+    "10141 Torino (TO) - IT": "14057 Isola d'Asti (AT) - IT",
+    "NUOVO IMPIANTO ELETTRICO": "NUOVO IMPIANTO ELETTRICO",
+    "A SERVIZIO DI UNITA' IMMOBILIARE AD USO COMMERCIALE": "A SERVIZIO DI FABBRICATO RESIDENZIALE CON ATTIVITA' B&B",
+    "IN CHIERI (TO), Strada Cambiano n. 220": "IN ISOLA D'ASTI (AT), Via Roma n. 1"
+  },
+  "attributi": {
+    "DATA1": "OTTOBRE 2026"
+  }
+}

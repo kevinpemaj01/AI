@@ -1,0 +1,56 @@
+{
+  "_nota": "Lavoro DIMOSTRATIVO richiesto dall'utente il 13/10/2026: dotazioni scelte da Claude (regole/esempio_dimostrativo.json), non progettuali.",
+  "progetto": "VJN001",
+  "pianta": "architettonico/PT_Isola_dAsti_casa_rustico_standard",
+  "unita": "cm",
+  "scala": 100,
+  "cartiglio_dati": "cartiglio_VJN001.json",
+  "regole": "regole/esempio_dimostrativo.json",
+  "finestre": [
+    {
+      "finestra": [
+        2648,
+        -7507,
+        5304,
+        -4302
+      ],
+      "etichetta": "PIANTA PIANO TERRA - STATO DI PROGETTO"
+    },
+    {
+      "finestra": [
+        6647,
+        -5164,
+        9240,
+        -3061
+      ],
+      "etichetta": "PIANTA PIANO PRIMO - STATO DI PROGETTO"
+    }
+  ],
+  "tavole": [
+    {
+      "numero": "E01",
+      "titolo": "DISTRIBUZIONE ILLUMINAZIONE ORDINARIA E DI SICUREZZA",
+      "impianti": [
+        "LC",
+        "EM"
+      ]
+    },
+    {
+      "numero": "E02",
+      "titolo": "DISTRIBUZIONE FORZA MOTRICE E IMPIANTO RIVELAZIONE INCENDI",
+      "impianti": [
+        "FM",
+        "QUADRI",
+        "IMP. ANTINCENDIO"
+      ]
+    },
+    {
+      "numero": "E03",
+      "titolo": "RETE DATI, CONTROLLO ACCESSI E DOMOTICA",
+      "impianti": [
+        "SERVIZI",
+        "SER"
+      ]
+    }
+  ]
+}
