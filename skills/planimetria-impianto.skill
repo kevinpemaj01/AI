@@ -1,0 +1,154 @@
+# Planimetria Impianto Elettrico (CEI 64-8) — AutoCAD LT / DXF
+
+---
+
+## Trigger
+
+- "Fammi il computo della tavola ..." / "conta i simboli"
+- "Prepara la tavola impianto" / "posa i simboli" / "verifica dotazioni CEI 64-8"
+
+---
+
+## Stato funzioni
+
+| Fase | Funzione | Script | Stato |
+|---|---|---|---|
+| 1 | Catalogo simboli | `estrai_catalogo.py`, `proponi_catalogo.py` | Catalogo LEGENDA100 verificato dall'utente; proposte dalle tavole da verificare |
+| 2 | Prepara la tavola | `prepara_tavola.py` | costruito; LOCK test 13/13 (ricostruisce E01); in attesa di verifica in LT |
+| 3 | Legenda e computo | `computo.py` | costruito, in attesa di verifica conteggi |
+| 4a | Locali (contorni + tabella) | `locali.py`, `aggiungi_locali.py` | costruito; LOCK 8/8 su stato di fatto Isola d'Asti vs `_SUP` |
+| 4b | Posa da tabella | `libreria.py`, `posa.py` | costruito; LOCK 10/10 (quantità = tabella, dentro i locali, ripetibile, computo coerente) |
+| 3b | Legenda automatica | `legenda.py` | costruito; LOCK 4/4 |
+| 5 | Dotazioni da regole | `dotazioni.py` + `regole/*.json` | motore costruito (LOCK 7/7). Solo regole DIMOSTRATIVE: file CEI 64-8 da creare con i valori dell'utente |
+| — | Lavoro completo | `lavoro_completo.py` + `Projects/<P>/lavoro_<P>.json` | tavole → locali → dotazioni → posa → legenda → computo → anteprime |
+
+Cartella: `tools/planimetria-impianto/`. File di riferimento in `riferimenti/`
+(LEGENDA100, Strada Cambiano, tavole ALLEGATO E01/E02/E03, CARTIGLIO BASE,
+Planimetria di Base). Gli xref delle tavole puntano ai DWG nella stessa cartella.
+
+---
+
+## Convenzioni dell'utente (da rispettare)
+
+- Simboli: scala di inserimento 10 (legenda a 1:100, piante in mm).
+- Tavola impostata in spazio modello: cornice A1 ×10 (polilinea chiusa), cartiglio
+  `CARTIGLIO BASE` come xref a scala 10, pianta come xref `Planimetria di Base`.
+- Layer impianti: LC, FM, EM, SER/SERVIZI, QUADRI, IMP. ANTINCENDIO, EVAC, RETE, TERRA, CAN/RIEMP.
+- Blocchi dinamici (`*Uxx`) vanno sempre ricondotti al nome originale (`simboli.nome_simbolo`).
+- Soluzione A: ogni voce di legenda ha il suo blocco (niente blocchi condivisi distinti da lettere).
+
+---
+
+## Unità di misura (IMPORTANTE)
+
+Le piante dell'utente sono in **centimetri** anche quando il file dichiara mm
+(INSUNITS=4). Lo spazio modello delle tavole è in cm, stampa 1:100, cornice A1 ×10.
+`prepara_tavola.py` stima l'unità dalle quote e avvisa se non coincide con `--unita`:
+in caso di avviso fermarsi e chiedere all'utente.
+
+---
+
+## Procedura — Prepara la tavola (Fase 2)
+
+1. Chiedere: numero di progetto, numero tavola (es. E01), titolo, pianta da usare.
+2. La pianta serve sia in DWG (xref) sia in DXF (stesso nome, stessa cartella).
+3. Chiedere la zona di pianta da mostrare se il file contiene più disegni
+   (piante/sezioni/prospetti): `--finestra x0,y0,x1,y1` in coordinate pianta.
+4. Eseguire:
+   ```bash
+   python tools/planimetria-impianto/prepara_tavola.py --progetto <P> --numero E01 --titolo "<TITOLO>" --pianta "<percorso senza estensione>" --unita cm [--finestra ...] --anteprima
+   ```
+5. Se esce "non entra nell'area": proporre la scala suggerita o una finestra più piccola.
+6. Riportare il percorso della tavola e mostrare l'anteprima PNG; aprire in LT
+   (`dxf_writer.open_in_lt`).
+
+Output in `Projects/<P>/`: tavola DXF + copia dei DWG di pianta e cartiglio (xref relativi).
+
+---
+
+## Procedura — Più piante e cartiglio di progetto (Fase 2, opzioni)
+
+- Più piante sulla stessa tavola: `prepara(..., finestre=[{"finestra": (...), "etichetta": "PIANTA PIANO TERRA"}, ...])`
+  (affiancate, allineate in alto, etichetta sottolineata sotto ciascuna).
+- Cartiglio di progetto: `cartiglio_dati=<json>` → il CARTIGLIO BASE.dxf viene incorporato
+  come blocco con i testi sostituiti e gli attributi compilati (SCALA, N°DISEGNO = numero tavola).
+  JSON in `Projects/<P>/cartiglio_<P>.json` (vedi VJN001). Serve perché gli script non
+  scrivono DWG e un xref deve essere DWG.
+
+---
+
+## Procedura — Locali (Fase 4a)
+
+1. Dopo `prepara_tavola`, eseguire per ogni tavola:
+   ```bash
+   python tools/planimetria-impianto/aggiungi_locali.py "<tavola.dxf>" --pianta "<pianta.dxf>" --progetto <P>
+   ```
+2. Le zone di pianta vengono lette dagli xref ritagliati della tavola.
+3. Contorni sul layer `LOCALI` (non stampabile) + `Projects/<P>/<P>_locali.xlsx`.
+4. Riportare all'utente le righe DA VERIFICARE (locali uniti, nomi ripetuti,
+   superfici diverse dal dichiarato > 5%). Non correggere a mano i contorni:
+   se la pianta ha già polilinee dei locali (es. `_SUP`), preferirle (`locali_da_polilinee`).
+
+---
+
+## Procedura — Posa da tabella (Fase 4b)
+
+1. La tabella `Projects/<P>/<P>_locali.xlsx` deve essere COMPILATA dall'utente
+   (colonne azzurre). Non inventare quantità: se è vuota, chiederle (o usare le
+   regole CEI 64-8 della Fase 5 quando saranno costruite con i valori dell'utente).
+2. Libreria simboli: `riferimenti/libreria_simboli.dxf` (rigenerare con
+   `python tools/planimetria-impianto/libreria.py` se cambiano le tavole di riferimento).
+3. Per ogni tavola, posare solo gli impianti di quella tavola:
+   ```bash
+   python tools/planimetria-impianto/posa.py "<E01.dxf>" --tabella "<P>_locali.xlsx" --pianta "<pianta.dxf>" --impianti LC,EM
+   python tools/planimetria-impianto/posa.py "<E02.dxf>" --tabella "<P>_locali.xlsx" --pianta "<pianta.dxf>" --impianti FM,SERVIZI,SER
+   ```
+4. Riportare `posati` e `avvisi`. Le posizioni sono proposte da rifinire in LT.
+   Rilanciare la posa sostituisce la precedente (niente duplicati) — ATTENZIONE:
+   cancella anche gli spostamenti fatti a mano sui simboli posati.
+5. Rigenerare i locali (`aggiungi_locali.py`) NON cancella le quantità già inserite.
+
+---
+
+## Procedura — Lavoro completo
+
+1. Creare `Projects/<P>/lavoro_<P>.json` (vedi VJN001): pianta, unità, scala, finestre,
+   tavole (numero, titolo, impianti = layer posati su quella tavola), cartiglio, regole.
+2. ```bash
+   python tools/planimetria-impianto/lavoro_completo.py Projects/<P>/lavoro_<P>.json
+   ```
+3. Riportare per ogni tavola: posati, avvisi di posa, voci legenda, simboli a computo.
+4. REGOLE: `regole/esempio_dimostrativo.json` NON è progettuale (scritto per una
+   dimostrazione). Usarlo solo se l'utente chiede esplicitamente una dimostrazione;
+   le tavole riportano allora l'avviso rosso "DOTAZIONI DIMOSTRATIVE - NON PROGETTUALI".
+   Per un progetto reale servono regole con valori forniti dall'utente (CEI 64-8).
+
+---
+
+## Procedura — Computo (Fase 3)
+
+1. Chiedere il numero di progetto.
+2. Chiedere quale tavola (DXF vero, non DWG rinominato: controllare che inizi con `0 SECTION`;
+   se è un DWG, far fare SALVACOME → AutoCAD 2018 DXF).
+3. Chiedere su quale layer sono i testi della legenda della tavola (se c'è).
+4. Eseguire:
+   ```bash
+   python tools/planimetria-impianto/computo.py "<tavola.dxf>" <PROGETTO> --layer-legenda "<layer>"
+   ```
+5. Riportare: simboli a computo, tipi DA CLASSIFICARE, simboli esclusi fuori cornice.
+   Le righe DA CLASSIFICARE (rosse nell'Excel) vanno aggiunte al catalogo dall'utente —
+   non inventare descrizioni.
+
+Output: `Projects/<PROGETTO>/<tavola>_computo.xlsx` (foglio Computo + Riepilogo impianti).
+
+---
+
+## LOCK Status
+☐ UNLOCKED — in costruzione.
+LOCK: `python tools/planimetria-impianto/tests/run_lock.py`
+- prepara_tavola: 13/13 PASS (2026-10-12), da confermare apertura in LT.
+- locali: 8/8 PASS (2026-10-13) — superfici entro 6% dei contorni `_SUP` dell'utente,
+  locali comunicanti segnalati.
+- posa: 10/10 PASS (2026-10-13).
+- dotazioni 7/7, legenda 4/4 PASS (2026-10-13). Totale suite: 42/42.
+- computo: test da aggiungere quando l'utente conferma i conteggi E01/E02.

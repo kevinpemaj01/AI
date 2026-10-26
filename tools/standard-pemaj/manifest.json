@@ -1,0 +1,12 @@
+{
+  "script": {
+    "comune.py": "cfa09974f3eea9452cc33545c2b2b394a0ad6578266618a2c027da325febb8ad",
+    "genera_ctb.py": "a37c9b77c9fcb581681429c0ae32c64481d5b3b752c9172e48dae04cde23101a",
+    "genera_template.py": "9e775594eaf98c1e905727a782e0e450646e001e878a03048f8224e65387acf9",
+    "verifica_tavola.py": "26202f31fa631c2fa9dadb474ee385b2f16861a6f536d967dd78b568a6c41801",
+    "dottore.py": "cee36313cf0dd569cb3d2afacaf7cb158f5eb3feb0a2253bad8e16b861878a4d",
+    "tests/run_lock.py": "749e7808d6cc4647c03f9b54056f45f5e96c7cb561de244560921c7bbf03cdfc",
+    "PEMAJ_FOGLIO.lsp": "c0ecafd5d2bf4a000c241f3774fbf3383c1f87a521aea7355d8821688b9e99ec",
+    "prepara_base.py": "dd3d16280d21068956dc8c5528951a67699f164a5d2fdc074bbe117a06e753b8"
+  }
+}

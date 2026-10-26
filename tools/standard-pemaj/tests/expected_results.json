@@ -1,0 +1,205 @@
+{
+  "progetti": {
+    "240": [
+      "#FF003F",
+      0.3
+    ],
+    "3": [
+      "#009900",
+      0.3
+    ],
+    "4": [
+      "#0088CC",
+      0.3
+    ],
+    "5": [
+      "#0000FF",
+      0.8
+    ],
+    "170": [
+      "#000099",
+      0.3
+    ],
+    "30": [
+      "#FF7F00",
+      0.5
+    ],
+    "246": [
+      "#404040",
+      0.25
+    ],
+    "7": [
+      "#000000",
+      0.25
+    ],
+    "8": [
+      "#808080",
+      0.1
+    ]
+  },
+  "diri_neri": [
+    240,
+    3,
+    4,
+    204,
+    5,
+    30,
+    154,
+    14,
+    6,
+    1
+  ],
+  "diri_colori": {
+    "10": [
+      "#FF0101",
+      0.35
+    ],
+    "232": [
+      "#A50052",
+      0.35
+    ],
+    "190": [
+      "#7F00FF",
+      0.35
+    ],
+    "94": [
+      "#007F00",
+      0.4
+    ],
+    "246": [
+      "#404040",
+      0.25
+    ]
+  },
+  "frontalino_mm": [
+    210.0,
+    297.0
+  ],
+  "attributi": [
+    "COMMITTENTE_1",
+    "COMMITTENTE_2",
+    "COMMITTENTE_3",
+    "COMMITTENTE_4",
+    "OGGETTO_1",
+    "OGGETTO_2",
+    "OGGETTO_3",
+    "FASE",
+    "TAVOLA",
+    "TITOLO_TAVOLA",
+    "SCALA",
+    "N°DISEGNO",
+    "DATA1",
+    "DATA2",
+    "DATA3",
+    "DATA4",
+    "DATA5",
+    "DATA6",
+    "PROGETTO1",
+    "PROGETTO2",
+    "PROGETTO3",
+    "PROGETTO4",
+    "PROGETTO5",
+    "PROGETTO6"
+  ],
+  "formati": {
+    "A3": [
+      420,
+      297
+    ],
+    "A2": [
+      594,
+      420
+    ],
+    "A1": [
+      841,
+      594
+    ],
+    "A0": [
+      1189,
+      841
+    ],
+    "LIBERO": [
+      1189,
+      841
+    ]
+  },
+  "e01_per_codice": {
+    "V01": 12,
+    "V02": 4,
+    "V03": 7,
+    "V05": 1,
+    "V06": 1,
+    "V07": 1
+  },
+  "centro_frontalino_x": 105.0,
+  "intestazione": {
+    "A4": [
+      210,
+      297
+    ]
+  },
+  "cartiglio_mm": [
+    190.0,
+    69.0
+  ],
+  "guide": 3,
+  "attributi_cartiglio": [
+    "SCALA",
+    "N°DISEGNO",
+    "DATA1",
+    "DATA2",
+    "DATA3",
+    "DATA4",
+    "DATA5",
+    "DATA6",
+    "PROGETTO1",
+    "PROGETTO2",
+    "PROGETTO3",
+    "PROGETTO4",
+    "PROGETTO5",
+    "PROGETTO6"
+  ],
+  "mline_pe": [
+    [
+      0.0,
+      50,
+      "Continuous"
+    ],
+    [
+      0.0,
+      94,
+      "PE_TRATTO"
+    ]
+  ],
+  "solo_cartiglio": [
+    "A3"
+  ],
+  "base_grana": {
+    "unita": "m",
+    "piante": [
+      "PIANTA PIANO SEMINTERRATO",
+      "PIANTA PIANO TERRENO",
+      "PIANTA PIANO PRIMO"
+    ],
+    "scartate": [
+      "SEZIONE A - A",
+      "PROSPETTO NORD",
+      "PROSPETTO SUD"
+    ],
+    "locali": [
+      "ufficio",
+      "archivio",
+      "sala Consiglio",
+      "centrale termica"
+    ],
+    "layer_ammessi": [
+      "MURI",
+      "INF",
+      "INFISSI",
+      "ARREDI",
+      "SANIT",
+      "MACCHINE",
+      "SCRITTE"
+    ]
+  }
+}

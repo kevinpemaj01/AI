@@ -1,0 +1,174 @@
+{
+  "_description": "LOCK benchmarks for tools/cad-output/dxf_writer.py. Each case builds a drawing, saves it, re-reads the saved file and compares against these values.",
+  "header": {
+    "$INSUNITS": 4,
+    "$MEASUREMENT": 1,
+    "$LUNITS": 2,
+    "$DIMSTYLE": "STRUCT",
+    "$ACADVER": "AC1032"
+  },
+  "layers": {
+    "CONCRETE": {
+      "color": 7,
+      "linetype": "Continuous"
+    },
+    "HIDDEN": {
+      "color": 8,
+      "linetype": "HIDDEN"
+    },
+    "CENTRE": {
+      "color": 1,
+      "linetype": "CENTER"
+    },
+    "REO": {
+      "color": 1,
+      "linetype": "Continuous"
+    },
+    "REO-TEXT": {
+      "color": 2,
+      "linetype": "Continuous"
+    },
+    "DIM": {
+      "color": 3,
+      "linetype": "Continuous"
+    },
+    "TEXT": {
+      "color": 7,
+      "linetype": "Continuous"
+    },
+    "HATCH": {
+      "color": 8,
+      "linetype": "Continuous"
+    },
+    "BORDER": {
+      "color": 7,
+      "linetype": "Continuous"
+    }
+  },
+  "cases": {
+    "TC1_rectangle_and_dims": {
+      "inputs": {
+        "width": 2400,
+        "depth": 1800,
+        "scale": 20,
+        "text_height": 2.5
+      },
+      "expected": {
+        "rect_vertices": [
+          [
+            0,
+            0
+          ],
+          [
+            2400,
+            0
+          ],
+          [
+            2400,
+            1800
+          ],
+          [
+            0,
+            1800
+          ]
+        ],
+        "rect_layer": "CONCRETE",
+        "dim_measurements": [
+          2400.0,
+          1800.0
+        ],
+        "dimstyle_dimtxt": 50.0,
+        "audit_errors": 0
+      }
+    },
+    "TC2_section_with_bars": {
+      "inputs": {
+        "width": 1000,
+        "depth": 500,
+        "cover": 50,
+        "bar_dia": 16,
+        "n_bars": 5
+      },
+      "expected": {
+        "bar_count": 5,
+        "bar_radius": 8.0,
+        "bar_centres_x": [
+          58.0,
+          279.0,
+          500.0,
+          721.0,
+          942.0
+        ],
+        "bar_centre_y": 58.0,
+        "bar_layer": "REO",
+        "hatch_count": 6,
+        "audit_errors": 0
+      }
+    },
+    "TC3_text": {
+      "inputs": {
+        "content": "PF1 - 2400 x 2400 x 600 DEEP",
+        "insert": [
+          1200,
+          -600
+        ],
+        "align": "MIDDLE_CENTER"
+      },
+      "expected": {
+        "content": "PF1 - 2400 x 2400 x 600 DEEP",
+        "height": 50.0,
+        "layer": "TEXT",
+        "style": "STRUCT",
+        "align_point": [
+          1200.0,
+          -600.0
+        ]
+      }
+    },
+    "TC4_save_no_overwrite": {
+      "inputs": {
+        "name": "lock_test",
+        "saves": 3
+      },
+      "expected": {
+        "filenames": [
+          "lock_test.dxf",
+          "lock_test_01.dxf",
+          "lock_test_02.dxf"
+        ]
+      }
+    },
+    "TC5_custom_layers": {
+      "inputs": {
+        "layers": {
+          "LC": [
+            3,
+            "Continuous",
+            -3
+          ],
+          "FM": [
+            240,
+            "Continuous",
+            -3
+          ],
+          "EM": [
+            4,
+            "Continuous",
+            -3
+          ]
+        }
+      },
+      "expected": {
+        "layers": {
+          "LC": 3,
+          "FM": 240,
+          "EM": 4
+        },
+        "structural_layers_absent": [
+          "CONCRETE",
+          "REO"
+        ]
+      }
+    }
+  }
+}

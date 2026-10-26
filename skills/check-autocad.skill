@@ -1,0 +1,110 @@
+# Check AutoCAD Connection (AutoCAD LT — DXF workflow)
+
+---
+
+## Trigger
+
+Use this skill when the user asks:
+- "Are you connected to AutoCAD?" / "Sono connesso ad AutoCAD?"
+- "Is AutoCAD connected?"
+- "Check my AutoCAD connection" / "Testa la connessione"
+- "Can you see AutoCAD?"
+- Any question about whether Claude can reach / draw in the local AutoCAD.
+
+---
+
+## Background — why there is no "live" connection
+
+This workstation runs **AutoCAD LT 2025**. AutoCAD LT has **no COM / ActiveX
+automation interface**, so Python cannot attach to it and draw live.
+
+Instead, the workspace uses a **DXF workflow**:
+1. Skill scripts build the drawing with `tools/cad-output/dxf_writer.py` (ezdxf).
+2. The drawing is saved as a `.dxf` in `Projects/[project-number]/`.
+3. The file is opened in AutoCAD LT — automatically if LT is closed, otherwise
+   the user opens it (OPEN command, or drag the file into the LT window).
+
+"Connected" therefore means: **the DXF chain works end to end.**
+
+---
+
+## Step-by-Step Procedure
+
+### Step 1 — Run the check script
+
+```bash
+python tools/check-autocad/check_autocad.py
+```
+
+Add `--no-open` to check without opening the test drawing.
+
+The script exits **0** (success) or **1** (failure) and prints one JSON object.
+It never writes into a drawing the user has open — the test drawing is a new
+file in the system temp folder (`%TEMP%\design-draft\test_connessione_lt.dxf`).
+
+No project number needed — this check has no saved outputs.
+
+---
+
+### Step 2 — Interpret the result
+
+**Success — `"status": "ok"`**
+
+Tell the user:
+
+> The AutoCAD LT workflow is ready: **{product}**, ezdxf {ezdxf_version}.
+> Test drawing created: `{test_file}`
+
+Then, based on `open.reason`:
+
+| `open.reason` | What to tell the user |
+|---|---|
+| `STARTED` | AutoCAD LT is starting with the test drawing. It shows a rectangle with the text "Hello from Claude. AutoCAD LT workflow is ready." and a 3000 dimension. If not visible, type `ZOOM` → `E`. |
+| `LT_ALREADY_RUNNING` | LT is already open, so a second copy was not started. Open the test file in LT (`OPEN`, or drag it into the window) to see it. |
+| `LT_NOT_FOUND` | Should not occur after a successful step 2 — report it. |
+
+---
+
+**Failure — read `"code"`:**
+
+| Code | What happened | What to tell the user |
+|------|--------------|----------------------|
+| `NO_EZDXF` | DXF library missing | Run `python -m pip install ezdxf`, then try again. |
+| `NO_DXF_WRITER` | Shared library missing/broken | `tools/cad-output/dxf_writer.py` is missing or broken — switch to Building Mode to restore it, then re-LOCK. |
+| `LT_NOT_FOUND` | AutoCAD LT not in registry | Install AutoCAD LT for Windows. |
+| `DXF_WRITE_FAILED` | Test drawing could not be built/saved | Show `message`. Check temp folder permissions; update ezdxf. |
+
+Always show the `"fix"` text from the JSON alongside your explanation.
+
+If Python itself is missing (`python` opens the Microsoft Store or "Python
+non è stato trovato"), tell the user to install Python from python.org and
+tick "Add python.exe to PATH".
+
+---
+
+### Step 3 — Present next steps (on success only)
+
+List the skills that actually exist in `skills/` (other than this one).
+If there are none yet, say so and offer to build one:
+
+> No design skills are built yet. Tell me which element or drawing you repeat
+> (pad footings, strip footings, columns, beams, slabs, schedules...) and we'll
+> build a skill: Python calcs + DXF drawing for AutoCAD LT, locked against a
+> verified spreadsheet.
+
+---
+
+## Notes
+
+- Windows only.
+- DXF version written: AutoCAD 2018 (opens in LT 2018 and later).
+- Units: millimetres.
+- On this machine `.dwg` is associated with another program (SPAC Start 26)
+  and `.dxf` has no association, so files are opened by calling
+  `acadlt.exe` directly — never by double-click association.
+
+---
+
+## LOCK Status
+☐ UNLOCKED — connection utility, no design calcs, no LOCK required.
+Depends on `tools/cad-output/` (see `skills/cad-output.skill`), which is LOCKed separately.

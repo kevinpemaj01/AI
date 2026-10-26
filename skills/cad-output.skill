@@ -1,0 +1,84 @@
+# CAD Output — shared DXF drawing library for AutoCAD LT
+
+---
+
+## What This Is
+
+Not a user-facing skill. This file documents `tools/cad-output/dxf_writer.py`,
+the shared library **every drawing skill must use** to produce AutoCAD LT
+drawings. AutoCAD LT has no COM interface, so skills never draw live —
+they build a `.dxf` with this library and hand it to LT.
+
+---
+
+## Rules for skill scripts
+
+1. Import the library — do not call ezdxf directly for layers, styles or saving:
+   ```python
+   import sys, pathlib
+   sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "cad-output"))
+   import dxf_writer as dw
+   ```
+2. Start every drawing with `dw.new_drawing(text_height=2.5, scale=<1:scale>)`.
+3. Draw only on the standard layers (below).
+4. Save with `dw.save(doc, project_number, name)` — it audits the file and
+   writes to `Projects/[project-number]/`, never overwriting (adds `_01`, `_02`...).
+5. Open with `dw.open_in_lt(path)` and report the returned `reason`:
+   - `STARTED` — LT launched with the file.
+   - `LT_ALREADY_RUNNING` — tell the user the path and to open it in LT
+     (OPEN, or drag into the window). Never start a second LT instance.
+   - `LT_NOT_FOUND` — report it.
+
+---
+
+## API summary
+
+| Function | Purpose |
+|---|---|
+| `new_drawing(text_height, scale, layers=None)` | New drawing with layers, STRUCT text style and STRUCT dim style. Model text height = text_height × scale. `layers` = {name: (colour, linetype, lineweight)} replaces the default structural layers (use it for electrical sheets). |
+| `line`, `polyline`, `rect`, `circle` | Basic geometry (layer default `CONCRETE`). |
+| `bar_section(msp, centre, bar_dia)` | Solid-filled bar in section on `REO`. |
+| `hatch_concrete(msp, points)` | AR-CONC hatch on `HATCH`. |
+| `text`, `mtext` | Text on `TEXT` in STRUCT style; default height from the drawing scale. |
+| `dim_linear(msp, p1, p2, offset, angle=None)` | Linear dimension on `DIM`. |
+| `leader_text(msp, content, target, text_pos)` | Line + label on `REO-TEXT`. |
+| `save(doc, project, name)` | Audit + save to `Projects/[project]/[name].dxf`. |
+| `open_in_lt(path)` / `reveal(path)` | Open in LT / show in Explorer. |
+| `find_lt()` / `lt_running()` | LT install & process detection. |
+
+## Standard layers
+
+| Layer | Colour | Linetype | Use |
+|---|---|---|---|
+| CONCRETE | 7 | Continuous | Concrete outlines |
+| HIDDEN | 8 | HIDDEN | Hidden edges |
+| CENTRE | 1 | CENTER | Centrelines / grids |
+| REO | 1 | Continuous | Reinforcement |
+| REO-TEXT | 2 | Continuous | Bar marks / labels |
+| DIM | 3 | Continuous | Dimensions |
+| TEXT | 7 | Continuous | Notes, titles |
+| HATCH | 8 | Continuous | Hatching |
+| BORDER | 7 | Continuous | Frames / title blocks |
+
+---
+
+## Dependencies
+
+- Python 3.10+ (installed: 3.15)
+- `python -m pip install ezdxf` (installed: 1.4.4)
+
+---
+
+## LOCK
+
+```bash
+python tools/cad-output/tests/run_lock.py
+```
+
+Compares against `tools/cad-output/tests/expected_results.json`
+(header/units, layers, geometry, dimension values, text, save naming).
+
+## LOCK Status
+☑ LOCKED — 2026-10-12. LOCK tests 34/34 pass (TC5 custom layers added with the
+`layers` option); user confirmed the test drawing opens correctly in AutoCAD LT 2025. Do not modify `dxf_writer.py` in Production
+Mode — any change requires Building Mode and a re-LOCK.

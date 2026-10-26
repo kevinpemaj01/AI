@@ -1,0 +1,17 @@
+# Lavori dei clienti (uscite di progetto)
+Projects/
+
+# File rigenerati automaticamente
+tools/standard-pemaj/out/
+__pycache__/
+*.pyc
+*.bak
+*.tmp.xlsx
+
+# Uscite dei test (si rigenerano)
+tools/planimetria-impianto/tests/prova_tavola/
+tools/planimetria-impianto/tests/prova_posa/
+
+# Disegni (dati dei clienti): esclusi finche' Kevin non decide se metterli nel repository privato
+*.dxf
+*.dwg

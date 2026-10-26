@@ -1,0 +1,166 @@
+{
+  "_description": "LOCK benchmarks for planimetria-impianto. Values for prepara_tavola are measured on the user's real sheet ALLEGATO E01 (riferimenti/), expressed relative to the lower-left corner of the outer frame.",
+  "prepara_tavola": {
+    "TP1_ricostruisci_E01": {
+      "inputs": {
+        "numero": "E01",
+        "titolo": "DISTRIBUZIONE ILLUMINAZIONE ORDINARIA E DI SICUREZZA",
+        "pianta": "riferimenti/Planimetria di Base",
+        "unita": "cm",
+        "finestra": [
+          14384,
+          4,
+          20572,
+          4950
+        ],
+        "scala": 100
+      },
+      "riferimento_E01": "riferimenti/ALLEGATO E01 ILL.ORDINARIA E DI SICUREZZA.dxf",
+      "tolleranza": 2.0,
+      "expected": {
+        "unita_stimata": "cm",
+        "xref": {
+          "Planimetria di Base": ".\\Planimetria di Base.dwg",
+          "CARTIGLIO BASE": ".\\CARTIGLIO BASE.dwg"
+        },
+        "xref_files_copied": [
+          "Planimetria di Base.dwg",
+          "CARTIGLIO BASE.dwg"
+        ],
+        "layers_impianti": {
+          "LC": 3,
+          "FM": 240,
+          "EM": 4,
+          "SERVIZI": 204,
+          "QUADRI": 164,
+          "IMP. ANTINCENDIO": 4
+        },
+        "pianta_layer_color": 8,
+        "header": {
+          "$VISRETAIN": 1,
+          "$XCLIPFRAME": 2
+        }
+      }
+    },
+    "TP2_pianta_troppo_grande": {
+      "inputs": {
+        "pianta": "riferimenti/Planimetria di Base",
+        "unita": "cm",
+        "finestra": null,
+        "scala": 100
+      },
+      "expected": {
+        "errore_contiene": "non entra nell'area"
+      }
+    }
+  },
+  "locali": {
+    "_nota": "Superfici di riferimento = polilinee _SUP disegnate dall'utente nello stato di fatto (verificate). Tolleranza 6%.",
+    "pianta": "riferimenti/Isola_dAsti_casa_rustico.dxf",
+    "tolleranza_%": 6.0,
+    "TL1_stato_di_fatto_PT": {
+      "finestra": [
+        2648,
+        83,
+        5304,
+        3288
+      ],
+      "superfici": {
+        "CUCINA": 52.49,
+        "CAMERA 3": 13.51,
+        "BAGNO 1": 3.98
+      },
+      "uniti": [
+        [
+          "CAMERA 1",
+          "CAMERA 2"
+        ]
+      ]
+    },
+    "TL2_stato_di_fatto_P1": {
+      "finestra": [
+        6647,
+        85,
+        9240,
+        1970
+      ],
+      "superfici": {
+        "CAMERA 1 B&B": 12.91,
+        "CAMERA 2 B&B": 16.77,
+        "BAGNO B&B": 4.5,
+        "CAMERA 3 B&B": 18.53
+      },
+      "uniti": []
+    }
+  },
+  "posa": {
+    "_nota": "Coerenza della posa: quantita' posate = tabella (fixture con quantita' di ESEMPIO, non progettuali), simboli dentro il proprio locale, nessun errore DXF, posa ripetibile senza duplicati.",
+    "pianta": "riferimenti/Isola_dAsti_casa_rustico",
+    "tabella": "tests/fixtures/posa_quantita_esempio.xlsx",
+    "finestre": [
+      [
+        2648,
+        -7507,
+        5304,
+        -4302
+      ],
+      [
+        6647,
+        -5164,
+        9240,
+        -3061
+      ]
+    ],
+    "etichette": [
+      "PIANTA PIANO TERRA - STATO DI PROGETTO",
+      "PIANTA PIANO PRIMO - STATO DI PROGETTO"
+    ],
+    "tavole": {
+      "E01": [
+        "LC",
+        "EM"
+      ],
+      "E02": [
+        "FM",
+        "SERVIZI",
+        "SER"
+      ]
+    },
+    "attesi": {
+      "E01": {
+        "CVE": 25,
+        "INT": 21,
+        "emer": 3
+      },
+      "E02": {
+        "16A": 44,
+        "TV": 8,
+        "presa ethernet": 3
+      }
+    }
+  },
+  "dotazioni": {
+    "_nota": "Verifica il MOTORE delle dotazioni con le regole dimostrative (non verifica valori di norma). Valori attesi calcolati a mano: SALA COLAZIONI 67.09 m2 -> CVE max(2, ceil(67.09/15)) = 5; corridoio/pianerottolo compresi nella sala -> nessuna dotazione; quadro di piano PT -> AUTORIMESSA, P1 -> DEPOSITO (i disimpegni del P1 sono compresi nella sala).",
+    "tabella": "tests/fixtures/posa_quantita_esempio.xlsx",
+    "regole": "regole/esempio_dimostrativo.json",
+    "attesi": {
+      "SALA COLAZIONI": {
+        "CVE": 5
+      },
+      "CORRIDOIO": {},
+      "PIANEROTTOLO / DISIMP,": {},
+      "AUTORIMESSA": {
+        "Quadro di piano": 1
+      },
+      "DEPOSITO SGABUZZINO": {
+        "Quadro di piano": 1
+      }
+    },
+    "totale_lettori_badge": 5,
+    "cella_preimpostata": {
+      "locale": "MAGAZZINO",
+      "colonna": "PUNTI LUCE",
+      "valore": 7
+    }
+  }
+}

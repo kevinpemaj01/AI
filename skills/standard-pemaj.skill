@@ -1,0 +1,232 @@
+# Standard grafico Studio Pemaj — stili di stampa, template, controllo tavole (AutoCAD LT / DXF)
+
+---
+
+## Trigger
+
+- "Rigenera gli stili di stampa" / "ho cambiato il master dei colori" / "aggiorna i CTB"
+- "Fammi il template" / "aggiorna il template col cartiglio" / "ho modificato il CARTIGLIO BASE"
+- "Controlla la tavola ..." / "verifica la tavola prima di stamparla" / "è a norma la tavola?"
+- "Ti carico la pianta dell'architetto" / "prepara la base" / "pulisci la planimetria" / "mettila con i miei layer"
+- "La skill funziona?" / "controlla lo standard" / "sistema lo standard" / "ripara"
+- Qualsiasi domanda su colori/spessori di stampa, layer, altezze dei testi, frontalino.
+
+Prima di OGNI uso: eseguire il controllo di salute (Passo 0). È veloce e ripara da solo.
+
+---
+
+## Stato funzioni
+
+| Funzione | Script | Stato |
+|---|---|---|
+| Autodiagnosi e autoriparazione | `dottore.py` | costruito; LOCK TC9 (script corrotto + CTB cancellati + cartiglio sparito → riparato) |
+| Stili di stampa da master Excel | `genera_ctb.py` | costruito; LOCK TC1-TC3 (255 colori × 3 stili = master) |
+| Template dal CARTIGLIO BASE | `genera_template.py` | costruito; LOCK TC4-TC6, TC10; **da confermare apertura in LT** |
+| Foglio a misura (come blocco dinamico) | `PEMAJ_FOGLIO.lsp` | costruito; **da provare in LT** (non verificabile fuori da AutoCAD) |
+| Controllo tavola | `verifica_tavola.py` | costruito; LOCK TC7 (tavola E01) e TC8 (errori costruiti apposta) |
+| Base architettonica pulita | `prepara_base.py` | costruito; LOCK TC11-TC13 (Grana + blocchi/MISTO); provato su layout industriale 76 MB; **da verificare in LT** |
+
+Cartella: `tools/standard-pemaj/`. Riferimenti in `riferimenti/`
+(`PEMAJ_stili_master.xlsx`, `CARTIGLIO BASE.dxf`). Output in `out/`.
+Prontuario completo (norme, regole, checklist): https://claude.ai/artifact/N8A1usJMPS42rtzp4HAezL
+
+---
+
+## Passo 0 — Controllo di salute (sempre, prima di tutto)
+
+```bash
+python tools/standard-pemaj/dottore.py --ripara
+```
+
+Leggere il JSON:
+
+| `status` | Cosa fare |
+|---|---|
+| `ok` | Procedere. |
+| `riparato` | Dire all'utente in una riga cosa è stato riparato (`azioni`), poi procedere. |
+| `errore` | Mostrare ogni `problemi[].message` con il suo `fix`. Non procedere finché non è risolto. |
+
+Codici e significato:
+
+| Code | Causa | Fix |
+|---|---|---|
+| `NO_EZDXF` / `NO_OPENPYXL` | Libreria mancante e pip non riuscito | `python -m pip install ezdxf openpyxl` |
+| `SCRIPT_MODIFICATO` | Uno script è diverso dalla versione LOCK e la copia di sicurezza manca o non coincide | Se la modifica è voluta: Building Mode → LOCK → `--congela`. Altrimenti ripristinare da `_backup/` |
+| `MANIFEST_MANCANTE` | Mai congelato | Building Mode: LOCK, poi `python tools/standard-pemaj/dottore.py --congela` |
+| `MASTER_NON_VALIDO` | Excel mancante/danneggiato e nessuna copia valida | Ripristinare `riferimenti/PEMAJ_stili_master.xlsx` |
+| `CARTIGLIO_NON_VALIDO` | Cartiglio mancante o senza cornice sul layer `cartiglio` / testo `Oggetto:` | In LT: aprire `CARTIGLIO BASE.dwg` → SALVACOME AutoCAD 2018 DXF in `riferimenti/` |
+| `CTB_NON_ALLINEATI` | CTB diversi dal master anche dopo la rigenerazione | Building Mode (bug in `genera_ctb.py`) |
+| `TEMPLATE_NON_VALIDO` | Template difettoso anche dopo la rigenerazione | Building Mode |
+| `FILE_APERTO` | Un CTB o il template è aperto in AutoCAD LT e non si può sovrascrivere | Chiedere all'utente di chiudere il file in LT, poi rilanciare `--ripara` |
+
+Cosa ripara da solo con `--ripara` (senza chiedere):
+- installa ezdxf/openpyxl se mancano;
+- ripristina uno script alterato o cancellato dalla copia `_backup/` (la versione alterata resta come `.modificato`);
+- recupera il cartiglio da `tools/planimetria-impianto/riferimenti/` o da `_backup/`;
+- ripristina il master solo se è illeggibile (quello danneggiato resta come `.danneggiato.xlsx`) — **avvisare l'utente** che le modifiche al master successive al LOCK vanno reinserite;
+- rigenera CTB e template se mancano, se master, cartiglio o generatori sono cambiati, o se un file
+  prodotto non è quello dell'ultima rigenerazione (impronte in `out/stato.json`).
+
+Non modifica MAI: tavole dell'utente, file fuori da `tools/standard-pemaj/`, script LOCKed con modifiche volute.
+
+---
+
+## Procedura — Stili di stampa
+
+1. L'utente modifica SOLO le colonne blu del foglio MASTER di `riferimenti/PEMAJ_stili_master.xlsx`
+   (colore `#RRGGBB` o `OGGETTO`, spessore in mm o `OGGETTO`).
+2. `python tools/standard-pemaj/dottore.py --ripara` → rigenera i CTB e li riconfronta col master.
+3. Consegnare `out/PEMAJ_PROGETTI.ctb`, `PEMAJ_DIRI.ctb`, `PEMAJ_SCHEMI.ctb`: vanno copiati nella cartella
+   stili di stampa di LT (comando `STILISTAMPA`).
+4. Aggiungere un nuovo stile = aggiungere nel master le colonne "Colore NOME" e "Spessore NOME (mm)":
+   viene creato `PEMAJ_NOME.ctb`.
+
+Significato degli stili (non cambiarlo senza chiedere):
+- **PROGETTI**: planimetrie di progetto (civile, industriale, ospedaliero, FV, ATEX, TVCC).
+- **DIRI**: DI.RI. e adeguamenti ai fini DI.RI. — i colori dei layer standard (FM 240, LC 3, EM 4,
+  SER 204, QUADRI 5, CAN 30, BLINDO 154, TERRA 14…) stampano **neri = impianto esistente**; tutti gli altri
+  colori restano colorati = **parti nuove da realizzare**. NON renderlo monocromatico.
+- **SCHEMI**: schemi elettrici dei quadri (ex HPQ).
+- Rivelatori incendio: colore unico ACI 232. Ciano 4 = emergenza. Muri (170) blu scuro #000099 0,30 in PROGETTI.
+
+---
+
+## Procedura — Template
+
+1. Il frontalino è l'**intestazione A4 verticale dello studio** (`CARTIGLIO BASE`); il "cartiglio" è la
+   sola parte bassa (blocco "cartiglio kevin": logo, progetto/date, N° disegno, scala, timbro).
+   Non ridisegnarli: se l'utente li cambia, salvare il nuovo DXF in `riferimenti/` e lanciare il Passo 0.
+2. Output `out/PEMAJ_TEMPLATE_mm.dxf`, layout in mm su carta, CTB PEMAJ_PROGETTI:
+   - **A4** = intestazione dell'allegato: blocco `PEMAJ_CARTIGLIO_BASE` a tutta pagina, 24 attributi
+     (COMMITTENTE_1-4, OGGETTO_1-3, FASE, TAVOLA, TITOLO_TAVOLA, SCALA, N°DISEGNO, DATA1-6, PROGETTO1-6).
+   - **A3** = tavola che segue l'intestazione A4: SOLO il cartiglio (blocco `PEMAJ_CARTIGLIO`, punto base
+     nello spigolo in basso a destra) nello spigolo della squadratura. Regola dello studio: in A3 mai
+     frontalino e pianta sullo stesso foglio (intestazione A4 + tavole A3).
+   - **A2, A1, A0** = allegato a sé: lo STESSO frontalino dell'A4 (`PEMAJ_CARTIGLIO_BASE`) in alto a
+     sinistra, spigolo sul bordo del foglio, finestra 1:100 a destra (come la tavola E01).
+     Non sostituirlo con il solo cartiglio.
+   - **LIBERO** = come A2-A0, con misure a piacere: comando `PEMAJ_FOGLIO` (file `PEMAJ_FOGLIO.lsp`,
+     APPLOAD in LT 2024+) chiede base e altezza e stira bordo, squadratura e finestra; il frontalino
+     resta in alto a sinistra, il cartiglio (in A3) in basso a destra. Poi IMPOSTAPAGINA con lo stesso formato.
+   Tutti: linea di taglio sul bordo foglio, squadratura a 3,46 mm, CTB PEMAJ_PROGETTI.
+   Regole grafiche fisse (verificate dal LOCK):
+   - TAVOLA e TITOLO_TAVOLA centrati sulla linea guida verticale del frontalino;
+   - **linee guida** per centrare i testi (verticale a metà frontalino, orizzontali sotto le due righe,
+     e qualsiasi linea che nel CARTIGLIO BASE sta su un layer con "GUID" nel nome) → layer `GUIDE`,
+     non stampabile, disegnate per prime, dietro a tutto;
+   - nel logo STUDIO PEMAJ il retino grigio (effetto ombra) è dietro a tutto il resto, sia nel frontalino
+     sia nel cartiglio (si conserva l'ordine SORTENTS del blocco originale).
+3. Tabelle di base nel template: layer dello studio (+ GUIDE e VP non stampabili, PE_GIALLO 50 e
+   PE_VERDE 94); tipi di linea INGOMBRO, BORDER, TRATTEGGIO, PE_TRATTO (lunghezze in mm su carta);
+   stili di testo PEMAJ_1.8 / 2.5 / 3.5 / 5 (romans.shx); stile di quota PEMAJ (testo 2,5 mm,
+   virgola decimale). Cavo di terra giallo-verde: due polilinee sovrapposte su PE_GIALLO (continuo) e
+   PE_VERDE (PE_TRATTO, sopra). ATTENZIONE: AutoCAD LT 2025 NON ha il comando MLINE (lo stile
+   PE_GIALLO_VERDE nel file serve solo all'AutoCAD completo): non proporre MLINE all'utente.
+   Nel CTB: ACI 50 giallo, ACI 94 verde, 0,40 mm.
+4. Il file si apre sul layout **A4** (lo spazio modello è vuoto per costruzione: la pianta si disegna lì).
+   In LT: aprire il DXF → SALVA CON NOME → Modello di disegno (*.dwt). Per aprirlo da qui:
+   `python tools/standard-pemaj/dottore.py --apri` (usa `dxf_writer.open_in_lt`; riportare `reason`
+   come da skill cad-output).
+5. Stili di testo e di quota NON sono scritti come annotativi dallo script (scelta voluta: i flag scritti
+   da script erano tra i sospetti del crash 0xc0000005 in LT). L'utente spunta "Annotativo" con
+   `STILE` e `DIMSTILE`.
+
+---
+
+## Procedura — Controllo tavola
+
+1. Serve un DXF vero: se l'utente dà un DWG, far fare SALVACOME → AutoCAD 2018 DXF
+   (lo script lo riconosce e risponde `E_UN_DWG`).
+2. ```bash
+   python tools/standard-pemaj/verifica_tavola.py "<tavola.dxf>" --unita cm --scala 100 --tipo progetto|diri|schema --progetto <P>
+   ```
+   `--unita`/`--scala` = convenzione della tavola (default cm e 1:100, come le tavole dello studio).
+3. Riportare `errori`, `avvisi`, `per_codice` e i primi esempi; il dettaglio è nell'Excel
+   `Projects/<P>/<tavola>_verifica.xlsx`.
+4. Codici: V01 layer fuori elenco (anche layer importati da PDF), V02 colore forzato (ERRORE: deve essere
+   DaLayer), V03 spessore forzato, V04 testo capovolto/obliquo (CEI EN 61082-1 §5.2), V05 testo sotto
+   1,8 mm su carta, V06 stile di stampa non PEMAJ, V07 frontalino assente o campi segnaposto
+   ("ALLEGATO E00", "TITOLO DELLA TAVOLA"), V08 scala del cartiglio ≠ finestra, V09 tavola DI.RI. senza
+   la dicitura "esistente" in legenda.
+5. Non correggere la tavola da soli: proporre le correzioni, l'utente le fa in LT.
+
+---
+
+## Procedura — Base architettonica (prepara base)
+
+Regole dell'utente (non cambiarle senza chiedere):
+- RESTANO: muri, porte/finestre, scale, arredi, macchinari, nomi dei locali.
+- SPARISCONO: quote, perimetri usati per le aree (e testi di superficie), retini/campiture, immagini,
+  riferimenti esterni, cartiglio e cornice dell'architetto, numeri/misure delle finestre, note.
+- Colore/spessore di ogni oggetto = DaLayer; uscita in **mm** (metodo 1:1) salvo richiesta "cm".
+
+1. Serve un DXF (un DWG: SALVACOME → AutoCAD 2018 DXF; lo script lo dice con `E_UN_DWG`).
+2. Prima passata (solo analisi, veloce da leggere):
+   ```bash
+   python tools/standard-pemaj/prepara_base.py "<pianta.dxf>" --progetto <P> --solo-analisi
+   ```
+   Mostrare all'utente `<nome>_base_viste.png` (verde = viste tenute, rosso = scartate; di default le
+   PIANTE, oppure tutto il disegno se non ci sono titoli), l'unità stimata (`unita.nota`) e la tabella
+   `<nome>_base_layer.xlsx` (colonna "Destinazione": MURI, INF, INFISSI, ARREDI, SANIT, MACCHINE,
+   SCRITTE, ELIMINA). Layer sconosciuti → INF (grigio, come la base nelle tavole).
+   La tabella ha due fogli: **Layer** (una destinazione per layer; `MISTO` = layer che mescola muri e
+   altro: linee/polilinee dritte lunghe almeno 3 m → MURI, il resto → INF) e **Blocchi** (una destinazione
+   per blocco). Regole automatiche sui blocchi: un blocco inserito sul layer dei muri va su MACCHINE (i muri
+   non sono blocchi, salvo nomi tipo muro/pilastro); un blocco complesso (≥150 oggetti, o ≥40 con il 30% di
+   curve) su layer generico va su MACCHINE; porte, finestre e arredi seguono il layer.
+3. Se l'utente corregge viste o tabella: `--viste 4,17,23` e/o `--mappa "<tabella corretta>.xlsx"`.
+   Con `--mappa` le scelte vengono memorizzate in `riferimenti/mappa_layer.json` (stesso layer → stessa
+   destinazione la volta dopo). Unità sbagliata: `--unita-ingresso m|cm|mm`.
+4. Passata finale (senza `--solo-analisi`): `<nome>_base.dxf` + `<nome>_base_dopo.png` + JSON con
+   oggetti eliminati per motivo e MB prima/dopo. Mostrare l'anteprima "dopo" e i numeri.
+5. L'utente apre il DXF in LT e lo salva come DWG (molto più leggero del DXF).
+Limiti da dire: nomi dei locali dentro blocchi con attributi → tenuti solo se sembrano nomi; testi dentro
+i blocchi (etichette dei macchinari) vengono tolti; un layer che mescola cose diverse (es. finestre e
+prospetti sullo stesso layer) va tutto nella stessa destinazione, salvo MISTO (che separa solo per
+lunghezza: una linea lunga di un macchinario finisce nei muri). Il riconoscimento geometrico dei muri
+(coppie di linee parallele) è stato provato sul layout Essex e scartato: troppi falsi muri nei reparti.
+
+---
+
+## Convenzioni dell'utente (da rispettare)
+
+- Le tavole esistenti sono "base al 10": modello in **cm** (anche se INSUNITS dichiara mm), stampa 1:100,
+  cornice A1 ×10, CARTIGLIO BASE come xref a scala 10 (vedi skill planimetria-impianto).
+- Il nuovo template è per il metodo **1:1 con annotatività** (layout in mm su carta). I due metodi
+  convivono: non convertire tavole vecchie al nuovo metodo senza che l'utente lo chieda.
+- Testi in relazioni di progetto: sempre al futuro ("verranno installati").
+- Norme di riferimento: CEI 0-2:2025, CEI EN 61082-1, CEI EN 60617, CEI EN IEC 81346.
+  Non citare articoli a memoria: rimandare al prontuario o chiedere il testo della norma.
+
+---
+
+## Building Mode / Production Mode
+
+- **Production** (default): usare solo i comandi sopra. Non modificare gli script.
+- **Building**: per cambiare uno script → modificare → `python tools/standard-pemaj/tests/run_lock.py`
+  deve dare `LOCK n/n PASS` → `python tools/standard-pemaj/dottore.py --congela`
+  (aggiorna impronte SHA-256 e copie di sicurezza usate dall'autoriparazione).
+  Se cambia un comportamento atteso, aggiornare prima `tests/expected_results.json` con l'utente.
+- Copiare i file senza convertire i fine riga (niente autocrlf), altrimenti le impronte non coincidono
+  e il Passo 0 li ripristina dalla copia di sicurezza.
+
+---
+
+## Dependencies
+
+- Python 3.10+, `python -m pip install ezdxf openpyxl` (il Passo 0 li installa se mancano)
+- Opzionale: `tools/cad-output/dxf_writer.py` per aprire i file in LT.
+
+---
+
+## LOCK
+
+```bash
+python tools/standard-pemaj/tests/run_lock.py
+```
+
+## LOCK Status
+☐ UNLOCKED — LOCK 13/13 PASS (2026-10-13), congelato con `--congela`.
+Da confermare: apertura di `out/PEMAJ_TEMPLATE_mm.dxf` in AutoCAD LT 2025, stampa di prova dei tre CTB,
+comando PEMAJ_FOGLIO in LT, base pulita aperta in LT.
+Dopo la conferma dell'utente: segnare ☑ LOCKED con la data.

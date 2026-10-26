@@ -1,0 +1,157 @@
+﻿BLOCCO;DESCRIZIONE;LAYER;COLONNA_LEGENDA;LARGH;ALT;A_COMPUTO;NOTE;VERIFICATO
+*U135;INTERRUTTORE;0;1;52;43;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+DEV;DEVIATORE;LC;1;38;65;SI;;si
+*U134;PULSANTE;0;1;45;63;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+P;PULSANTE LUCE DI SERVIZIO CON COMANDO A CHIAVE;LC;1;34;36;SI;;si
+P;PULSANTE CON DIMMER;LC;1;35;36;SI;;si
+P;PULSANTE COMANDO BIPRESA;LC;1;35;36;SI;;si
+ALWC;PULSANTE CHIAMATA ALLARME WC;SERVIZI;1;30;53;SI;;si
+;PULSANTE AZZERAMENTO ALLARME WC COMPLETO DI SEGNALAZIONE ACUSTICA;;1;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;PULSANTE APERTURA TORRINI;;1;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;PULSANTE DI COMANDO SUONERIA INIZIO/TERMINE LEZIONI;;1;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;PULSANTE CAMPANELLO;;1;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+PEM;PULSANTE DI EMERGENZA;EM;1;85;40;SI;;si
+PEM;PULSANTE EVACUAZIONE EDIFICIO;EM;1;85;40;SI;;si
+*U131;BIPRESA 10/16 A CON INTERRUTTORE MAGNETOTERMICO;FM;1;35;45;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+*U131;BIPRESA 10/16 A CON INTERRUTTORE MAGNETOTERMICO COMANDATA DA PULSANTE;FM;1;35;45;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+Bi;BIPRESA 10/16 A CON INTERRUTTORE MAGNETOTERMICO PER ALLACCIAMENTO PHON;FM;1;40;40;SI;;si
+PR_H_PL;PRESA ALTEZZA PIANO LAVORO;0;1;18;20;no;;si
+CEE;PRESA CEE 2x16 A+T CON INTERRUTTORE MAGNETOTERMICO INTERBLOCCATA MECCANICAMENTE;FM;1;42;39;SI;;si
+CEE1;PRESA CEE 3x16 A+N+T CON INTERRUTTORE MAGNETOTERMICO INTERBLOCCATA MECCANICAMENTE;FM;1;42;39;SI;;si
+Cee2;PRESA CEE 3x32 A+N+T CON INTERRUTTORE MAGNETOTERMICO INTERBLOCCATA MECCANICAMENTE;EM;1;42;39;SI;;si
+SHHU;PRESA TIPO SHUKO CON INTERRUTTORE MAGNETOTERMICO;FM;1;41;41;SI;;si
+BTS13;PRESA EDP;SERVIZI;1;39;39;SI;;si
+;PRESA JACK;;1;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+QPRE;GRUPPO PRESE COMPRENDENTE:;FM;1;30;30;SI;;si
+QPRE;TORRETTA A PAVIMENTO A SCOMPARSA COMPRENDENTE:;FM;1;30;30;SI;;si
+BLQUA;GRUPPO PRESE A MURO COMPRENDENTE:;FM;1;30;30;SI;;si
+BL4;GRUPPO PRESE A MURO COMPRENDENTE:;FM;1;42;42;SI;;si
+BLQC;GRUPPO PRESE BANCO BAR COMPRENDENTE:;FM;1;30;30;SI;;si
+*X102;ALLACCIAMENTO BANCONE RECEPTION COMPRENDENTE:;FM;1;29;29;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+QTOR;POSTAZIONE CASSA COMPRENDENTE:;FM;1;57;24;SI;;si
+;QUADRETTO PRESE ALIMENTATO SOTTO TRASFORMATORE ISOLAMENTO CONTENENTE:;;1;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;PRESA RADIOLOGICA CEE;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+BTSIR;PRESA TRASMISSIONE DATI;SER;2;39;39;SI;;si
+TEL;PRESA TELEFONO;SERVIZI;2;50;35;SI;;si
+TV;PRESA TV;SER;2;20;50;SI;;si
+TVCC;ALLACCIAMENTO TV CIRCUITO CHIUSO (tubazione predisposta h= 2.70 m da filo pavimento);SERVIZI;2;56;50;SI;;si
+BLTVS;ALLACCIAMENTO A CENTRO VOLTA TV CIRCUITO CHIUSO;SER;2;57;55;SI;;si
+*X106;TUBO VUOTO PREDISPOSTO (h= filo soffitto);SER;2;15;15;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+;ALLACCIAMENTO COMANDO LETTO (h= 0.50 da filo pavimento);;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+*X98;ALLACCIAMENTO DISPONIBILE PER ARCHIVIO AUTOMATICO;FM;2;66;16;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+;ALLACCIAMENTO LUCE;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;ALLACCIAMENTO BANCO BAR (posizione da definire);;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+F2;ALLACCIAMENTO INSEGNE;LC;2;67;17;SI;;si
+QTEST;ALLACCIAMENTO TESTALETTO (h= 1.80 da filo pavimento);LC;2;82;18;SI;;si
+BLELT;ALLACCIAMENTO ELETTROVALVOLA SU TUBAZIONE ACQUA;SER;2;40;40;SI;;si
+BLM;ALLACCIAMENTO MAGNETE PORTA (h= 2.30 m da filo pavimento, quota da verificare);EM;2;40;40;SI;;si
+SON;ALLACCIAMENTO SONORO (h= 2.30 m da filo pavimento);SERVIZI;2;43;43;SI;;si
+FONO;ALLACCIAMENTO SENSORE ANTIALLAGAMENTO (h=filo pavimento);SERVIZI;2;40;40;SI;;si
+AF;ALLACCIAMENTO SENSORE ANTIFURTO (h= 2.30 m da filo pavimento);SERVIZI;2;40;40;SI;;si
+;ALLACCIAMENTO IDROMASSAGGIO;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+C;ALLACCIAMENTO VENTOLA AERAZIONE;SER;2;40;40;SI;;si
+C;ALLACCIAMENTO FOTOCELLULE LAVABO / DISPENSATORI AUTOMATICI;SER;2;40;40;SI;;si
+C;ALLACCIAMENTO TABELLONE ELETTRONICO;SER;2;40;40;SI;;si
+C;ALLACCIAMENTO LAMA D'ARIA;SER;2;40;40;SI;;si
+citofon;ALLACCIAMENTO CITOFONO;SERVIZI;2;50;28;SI;;si
+;ALLACCIAMENTO VIDEOCITOFONO;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;ALLACCIAMENTO MACCHINA TERMICA SU TETTO (posizione da definire);;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+S;PUNTO INSERIMENTO ANTIFURTO (tubazione predisposta);SER;2;46;36;SI;;si
+;ALLACCIAMENTO TENDE ELETTRICHE;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;ALLACCIAMENTO CALDAIA;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;ALLACCIAMENTO TORRINO;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+C;ALLACCIAMENTO PHON;SER;2;40;40;SI;;si
+C;ALLACCIAMENTO DIAFANOSCOPIO;SER;2;40;40;SI;;si
+Qtes;ALLACCIAMENTO VENTILCONVETTORE;VENT;2;50;11;SI;;si
+;ALLACCIAMENTO LAMPADA SCIALITICA;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;TUBAZIONE PREDISPOSTA PER ALLACCIAMENTO PORTA (h=filo soffitto);;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;TUBAZIONE PREDISPOSTA PER ALLACCIAMENTO PORTA (h= 0.90 m da filo pavimento);;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+BLBAA;SCATOLA PREDISPOSTA PER MODULO DI CONTROLLO E GESTIONE (Building Automation);SER;2;48;58;SI;;si
+BLCF;CONTATTO SU FINESTRA;SER;2;40;40;SI;;si
+;CONCENTRATORE DI CHIAMATA DI PIANO CON DISPLAY;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;PREDISPOSIZIONE BADGE APERTURA PORTA h= 1.10 m;;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+BLCPO;CONTATTO MAGNETICO;SER;2;40;40;SI;;si
+;ESTRATTORE SU CANALE ESPULSIONE IN CONTROSOFFITTO (COMANDO DA TERMOVENTILANTE);;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;ESTRATTORE SU CANALE ESPULSIONE IN CONTROSOFFITTO (COMANDO LOCALIZZATO);;2;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+CARTE;SEGNALAZIONE CHIAMATA CARTELLINI;SERVIZI;2;30;30;SI;;si
+Si;RIPETIZIONE OTTICA/ACUSTICA ALLARME WC;SER;2;65;50;SI;;si
+Si;SUONERIA INIZIO/TERMINE LEZIONI;SER;2;57;50;SI;;si
+Si;CAMPANELLO;SER;2;40;35;SI;;si
+BLSENS;SENSORE LUMINOSITA' ESTERNO (su tetto);LC;2;54;67;SI;;si
+A$C7D1C7F27;ALLACCIAMENTO RICEVITORE RADIOCOMANDO;LC;2;40;40;SI;;si
+SENS;SENSORE DI PRESENZA PERSONE PER COMANDO LUCI (temporizzato allo spegnimento);LC;2;47;46;SI;;si
+R;RIVELATORE INCENDIO INSTALLATO A VISTA;EM;2;40;40;SI;;si
+BLSOL;RIVELATORE INCENDIO INSTALLATO OLTRE CONTROSOFFITTO;LC;2;40;40;SI;;si
+*X65;RIVELATORE FUGHE GAS;EM;2;40;40;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+ELVAL;ELETTROVALVOLA SU TUBO ADDUZIONE GAS;EM;2;61;21;SI;;si
+A$C5A77390A;SEGNALAZIONE OTTICA E ACUSTICA EVACUAZIONE EDIFICIO / RIVELAZIONE INCENDIO;0;2;80;45;SI;;si
+CVE;PUNTO LUCE;LC;3;48;48;SI;;si
+CME;PUNTO LUCE A MURO;LC;3;70;45;SI;;si
+GLOM;PUNTO LUCE A MURO PER ESTERNO (IP 55);LC;3;62;70;SI;;si
+EXTRA;PUNTO LUCE 1x55 W CON EMISSIONE A LUCE MORBIDA;LC;3;62;62;SI;;si
+Cme1;PUNTO LUCE A MURO CON FUNZIONAMENTO NOTTURNO (h=0,30 m da filo pavimento);LC;3;70;45;SI;;si
+*X90;PUNTO LUCE CON FUNZIONAMENTO NOTTURNO;LC;3;33;48;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+CVE;PUNTO LUCE CON FUNZIONAMENTO NOTTURNO;LC;3;48;48;SI;;si
+BLLCA;PUNTO LUCE CAMERA;CAN;3;60;60;SI;;si
+BLLCTER;PUNTO LUCE TERRAZZO;CAN;3;56;56;SI;;si
+*X83;PUNTO LUCE A SOSPENSIONE;LC;3;41;60;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+BL24;PUNTO LUCE CAPPELLA;LC;3;60;60;SI;;si
+Cme5;PUNTO LUCE A MURO CORRIDOIO;LC;3;60;44;SI;;si
+Cme4;PUNTO LUCE A MURO ZONA BAR;LC;3;57;61;SI;;si
+Cve3;PUNTO LUCE A SOSPENSIONE ZONA BAR;LC;3;60;60;SI;;si
+Cve4;PUNTO LUCE INGRESSO SALA;LC;3;60;60;SI;;si
+Pro;FARO ILLUMINAZIONE TELO PROIEZIONE (h=5 m da filo pavimento);LC;3;60;40;SI;;si
+Cme3;APLIQUE SALA con lampada alogena / incandescenza;LC;3;58;57;SI;;si
+BLDIC1;FARETTO DA INCASSO PER ILLUMINAZIONE BANCONE CON LAMPADA FLUORESCENTE;LC;3;33;33;SI;;si
+FDICROC;FARETTO DA INCASSO CON LAMPADA FLUORESCENTE;LC;3;25;25;SI;;si
+Fadi;FARETTO DA INCASSO DICROICO;LC;3;28;30;SI;;si
+Cve6;FARETTO DA INCASSO PER ILLUMINAZIONE ZONA BAR;LC;3;36;36;SI;;si
+BLPL;FARETTO TONDO FLUORESCENTE AD INCASSO;LC;3;41;41;SI;;si
+BLIZ;FARETTO AD INCASSO PER ESTERNO;LC;3;40;40;SI;;si
+Fq2x26;FARETTO QUADRATO DA INCASSO 2x32 W;LC;3;24;24;SI;;si
+1X18;PLAFONIERA FLUORESCENTE CON n... LAMPADE DA... W;LC;3;60;20;SI;;si
+BL18T;PLAFONIERA FLUORESCENTE TUBOLARE COMPONIBILE CON n... LAMPADE DA... W;LC;3;60;20;SI;;si
+lcM2x36;PLAFONIERA LUCE MORBIDA CON n. 1 LAMPADA DA ... W;LC;3;60;60;SI;;si
+AR;PLAFONIERA CON CON OTTICA ANTIRIFLESSO;SCRITTE;3;37;26;SI;;si
+Ffune;FARETTO SU TRAVE ELETTRIFICATO;SCRITTE1;3;54;27;SI;;si
+;TRAVE ELETTRIFICATO;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;INVERTER IN PLAFONIERA PREDISPOSTA;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+fagrad;SEGNAGRADINO SU FILO SCALINO CON FUNZIONAMENTO NORMALE E IN EMERGENZA (alimentato da Gruppo Soccorritore);SEGNAGR;3;25;22;SI;;si
+Serp;SEGNAGRADINO SU FILO SCALINO CON FUNZIONAMENTO NORMALE E IN EMERGENZA (alimentato da Gruppo Soccorritore);SEGNAGR;3;25;62;SI;;si
+CVE;PUNTO LUCE ALIMENTATO DA GRUPPO SOCCORRITORE CON FUNZIONAMENTO IN EMERGENZA;EM;3;48;48;SI;;si
+*X75;PUNTO LUCE CAPPELLA ALIMENTATO DA GRUPPO SOCCORRITORE CON FUNZIONAMENTO IN EMERGENZA;INF;3;60;46;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+;FARETTO DICROICO AD INCASSO ALIMENTATO DA GRUPPO SOCCORRITORE CON FUNZIONAMENTO IN EMERGENZA;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+LNOT;FARETTO TONDO FLUORESCENTE AD INCASSO ALIMENTATO DA GRUPPO SOCCORRITORE CON FUNZIONAMENTO IN EMERGENZA;EM;3;27;27;SI;;si
+BL18T;PLAFONIERA FLUORESCENTE TUBOLARE COMPONIBILE CON n... LAMPADE DA... W ALIMENTATA DA GRUPPO SOCCORRITORE CON FUNZIONAMENTO IN EMERGENZA;EM;3;60;20;SI;;si
+;;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+*X91;PLAFONIERA AUTOALIMENTATA CON FUNZIONAMENTO IN EMERGENZA;LC;3;58;19;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+em;PLAFONIERA ALIMENTATA DA GRUPPO SOCCORRITORE CON FUNZIONAMENTO IN EMERGENZA;FM;3;60;40;SI;;si
+US;PLAFONIERA COME SOPRA CON PITTOGRAMMA DI SEGNALAZIONE;LC;3;60;40;SI;;si
+Qcame;INTERRUTTORE DI CAMERA MAGNETOTERMICO DIFFERENZIALE 2x10 A - Idn= 0.03 A;QUADRI;3;69;24;SI;;si
+;;;3;;;;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+Qcame;QUADRETTO CAMERA / ALLOGGIO h=1,50m e Scatola di Dervivazione h=0,30m;QUADRI;3;69;24;SI;;si
+*X88;CANALINA FERRO IN CONTROSOFFITTO SEZ. 200x75 mm  DISTRIBUZIONE LC ed FM;RIEMP;3;148;20;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+*X105;CANALINA FERRO IN CONTROSOFFITTO SEZ. 200x75 mm DISTRIBUZIONE SERVIZI;RIEMP1;3;142;20;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+*X89;CANALINA PVC SOTTO PAVIMENTO SEZ. 150x50 mm DISTRIBUZIONE FM NORMALE E PRIVILEGIATA;RIEMP;3;150;20;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+*X107;CANALINA PVC SOTTO PAVIMENTO SEZ. 150x50 mm DISTRIBUZIONE RETE EDP;RIEMP;3;150;20;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+*X52;PASSERELLA ASOLATA IN ACCIAIO (in controsoffitto) SEZ. 300x75 mm DISTRIBUZIONE LC ed FM;RIEMP;3;148;20;SI;blocco anonimo/dinamico: da trasformare in blocco con nome;si
+;PASSERELLA ASOLATA IN ACCIAIO (in controsoffitto) SEZ. 200x75 mm DISTRIBUZIONE LC EMERGENZA e SERVIZI;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;BLINDO LUCE 4x25 A + T;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;TUBAZIONI PVC INCASSATE NEL PAVIMENTO (profondità minima 12 cm CLS):;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;TUBAZIONI PVC INCASSATE NEL PAVIMENTO (profondità minima 12 cm CLS):;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;TUBAZIONI PVC INCASSATE NEL PAVIMENTO (profondità minima 12 cm CLS):;;3;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;TUBAZIONE PVC IN TRINCEA %%C 125 mm;;4;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;PUNTO DI CONNESSIONE DELLE USCITE CONTRO PARETE TRA MAGLIA EQUIPOTENZIALE (sotto getto calcestruzzo) E COLLETTORE DI TERRA;;4;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;;;4;;;;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+BLO;SERRAGGIO TRECCIA RAME A GRIGLIA ELETTROSALDATA;FM;4;57;63;SI;;si
+;SERRAGGIO TRECCIA RAME SOTTO PAVIMENTO;;4;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;PUNTO DI SALITA PIATTO IN RAME 50x3 mm PER SCAVALCAMENTO PORTA;;4;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+nodo_eq;BANDELLA 50x5 mm A +0,30m DA FILO PAVIMENTO COLLEGATA CON DISPERSORI MEDIANTE TRECCIA RAME NUDO sez. 50 mmq;FM;4;77;38;SI;;si
+;;;4;;;;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;TRECCIA RAME NUDO sez. 50 mmq (da posare su base di terreno sotto il getto di calcestruzzo);;4;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;COLLETTORE DI TERRA CON PIATTO IN RAME Sez.=30x3 mm FISSATO A PARETE SU DISTANZIATORI (a + 0,30 m da filo pavimento);;4;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+;;;4;;;;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+NODO;DISPERSORE DI TERRA A CROCE IN ACCIAIO ZINCATO A FUOCO;RETE;4;72;86;SI;;si
+;L=1500 mm Sez.=50x50x5 mm;;4;;;SI;simbolo disegnato con linee sciolte: da trasformare in blocco;si
+Lux;ILLUMINAMENTO MEDIO;SCRITTE;4;219;40;no;;si
+IP55;LOCALE CON GRADO DI PROTEZIONE PARI AD IP 55;LC;4;109;46;no;;si
